@@ -3,7 +3,7 @@ export class User {
   public lastname: string;
   public email: string;
   public avatarUrl: string;
-  public creationDate: string;
+  public creationDate: Date;
   public preferredLang: string;
   public occupation: string;
   public connected = false;
@@ -14,7 +14,7 @@ export class User {
     this.email = data.email || '';
     this.avatarUrl = data.avatarUrl || '';
     this.occupation = data.occupation || '';
-    this.creationDate = data.creation_date || Date.now();
+    this.creationDate = data.creation_date || null;
     this.preferredLang = data.preferredLang || null;
     this.connected = data.connected || false;
   }

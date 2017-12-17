@@ -8,21 +8,22 @@ import { Router } from '@angular/router';
   selector: '.userBox',
   /* tslint:enable */
   styleUrls: ['./user-box.component.css'],
-  templateUrl: './user-box.component.html'
+  templateUrl: './user-box.component.html',
 })
 export class UserBoxComponent implements OnInit {
-
   // default user, only an example, please use the userService to modify
-  public currentUser: User =  new User({
-      avatarUrl: 'assets/img/user2-160x160.jpg',
-      email: 'weber.antoine@outlook.com',
-      firstname: 'WEBER',
-      lastname: 'Antoine'
+  public currentUser: User = new User({
+    avatarUrl: 'assets/img/user2-160x160.jpg',
+    email: 'weber.antoine@outlook.com',
+    firstname: 'WEBER',
+    lastname: 'Antoine',
   });
 
   constructor(private userServ: UserService, private router: Router) {
     // se connecter au modif du user courant
-    this.userServ.getCurrent().subscribe((user: User) => this.currentUser = user);
+    this.userServ
+      .getCurrent()
+      .subscribe((user: User) => (this.currentUser = user));
   }
 
   public ngOnInit() {
@@ -31,5 +32,9 @@ export class UserBoxComponent implements OnInit {
 
   public logout = (): void => {
     this.userServ.logout();
-  }
+  };
+
+  public profile = (): void => {
+    this.userServ.profile();
+  };
 }

@@ -11,14 +11,14 @@
     <img [src]="currentUser.avatarUrl" class="img-circle" [alt]="currentUser.getName()">
     <p>
       {{currentUser.getName()}}
-      <span [hidden]="!currentUser.getClass()">- {{currentUser.getClass()}}</span>
-      <small [hidden]="!currentUser.creationDate()">Member since {{currentUser.creationDate()}}</small>
+      <span [hidden]="!currentUser.occupation">- {{currentUser.occupation}}</span>
+      <small [hidden]="!currentUser.creationDate">Member since {{currentUser.creationDate}}</small>
     </p>
   </li>
   <!-- Menu Footer-->
   <li class="user-footer">
     <div class="pull-left">
-      <a href="#" class="btn btn-default btn-flat">Perfil</a>
+      <a (click)="profile()" class="btn btn-default btn-flat">Perfil</a>
     </div>
     <div class="pull-right">
       <a (click)="logout()" class="btn btn-default btn-flat">Sair</a>

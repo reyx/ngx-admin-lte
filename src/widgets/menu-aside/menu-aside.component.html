@@ -41,7 +41,7 @@
         </ng-container>
         <!-- LINK -->
         <ng-container *ngIf="item.link">
-          <li [routerLinkActive]=[ 'active']>
+          <li [routerLinkActive]="['active']">
             <a *ngIf="!item.external" [routerLink]="item.link">
               <i class="fa fa-{{item.icon}}"></i>
               <span>{{item.title}}</span>
@@ -54,7 +54,7 @@
         </ng-container>
         <!-- LINK WITH SUBLINKS -->
         <ng-container *ngIf="item.sublinks">
-          <li class="treeview" [routerLinkActive]=[ 'active']>
+          <li class="treeview" [routerLinkActive]="['active']">
             <a href="#">
               <i *ngIf="item.icon" class="fa fa-{{item.icon}}"></i>
               <span>{{item.title}}</span>
@@ -65,7 +65,7 @@
             </a>
             <ul class="treeview-menu">
               <ng-container *ngFor="let subitem of item.sublinks">
-                <li [routerLinkActive]=[ 'active']>
+                <li [routerLinkActive]="['active']">
                   <a *ngIf="!subitem.external" [routerLink]="subitem.link">
                     <i *ngIf="subitem.icon" class="fa fa-{{subitem.icon}}"></i>
                     <span>{{subitem.title}}</span>

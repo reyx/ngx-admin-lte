@@ -1,4 +1,3 @@
-
 // services
 import { BreadcrumbService } from './src/services/breadcrumb.service';
 export * from './src/services/breadcrumb.service';
@@ -14,9 +13,6 @@ export * from './src/services/messages.service';
 
 import { NotificationsService } from './src/services/notifications.service';
 export * from './src/services/notifications.service';
-
-import { RestService } from './src/services/rest.service';
-export * from './src/services/rest.service';
 
 import { TranslateService } from './src/services/translate.service';
 export * from './src/services/translate.service';

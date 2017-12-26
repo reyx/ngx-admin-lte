@@ -1,12 +1,15 @@
-
 // based on https://github.com/ng-book/angular2-rxjs-chat/blob/master/app/ts/services/NotificationsService.ts
 import { Notification } from '../models/notification';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, ReplaySubject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import 'rxjs/add/operator/map';
 
 const initialNotifications: Notification[] = [];
 
-type INotificationsOperation = (notifications: Notification[]) => Notification[];
+type INotificationsOperation = (
+  notifications: Notification[]
+) => Notification[];
 
 @Injectable()
 export class NotificationsService {
@@ -15,7 +18,9 @@ export class NotificationsService {
   public newNotifications: Subject<Notification> = new Subject<Notification>();
 
   // `notifications` is a stream that emits an array of the most up to date notifications
-  public notifications: ReplaySubject<Notification[]> = new ReplaySubject<Notification[]>(1);
+  public notifications: ReplaySubject<Notification[]> = new ReplaySubject<
+    Notification[]
+  >(1);
 
   // `updates` receives _operations_ to be applied to our `notifications`
   // it's a way we can perform changes on *all* notifications (that are currently
@@ -28,7 +33,7 @@ export class NotificationsService {
 
   constructor() {
     // recois des operation, et les fais sur la liste interne, puis diffuse le resultat sur notifications
-    this.updates.subscribe((ope) => {
+    this.updates.subscribe(ope => {
       this.notificationsList = ope(this.notificationsList);
       console.log(this.notificationsList);
       this.notifications.next(this.notificationsList);
@@ -41,12 +46,10 @@ export class NotificationsService {
         };
       })
       .subscribe(this.updates);
-
   }
 
   // an imperative function call to this action stream
   public addNotification(notification: Notification): void {
     this.newNotifications.next(notification);
   }
-
 }

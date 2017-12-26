@@ -13,10 +13,10 @@ import { Router } from '@angular/router';
 export class UserBoxComponent implements OnInit {
   // default user, only an example, please use the userService to modify
   public currentUser: User = new User({
-    avatarUrl: 'assets/img/user2-160x160.jpg',
-    email: 'weber.antoine@outlook.com',
-    firstname: 'WEBER',
-    lastname: 'Antoine',
+    avatarUrl: '',
+    email: '',
+    firstname: '',
+    lastname: '',
   });
 
   constructor(private userServ: UserService, private router: Router) {
@@ -30,11 +30,11 @@ export class UserBoxComponent implements OnInit {
     // TODO
   }
 
-  public logout = (): void => {
+  public logout(): void {
     this.userServ.logout();
-  };
+  }
 
-  public profile = (): void => {
+  public profile(): void {
     this.userServ.profile();
-  };
+  }
 }

@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
-import { HttpModule, Http } from '@angular/http';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
-import { TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
-    return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
+  return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
 }
 
 // Pipes
@@ -48,8 +47,6 @@ import { LayoutAuthComponent } from './layouts/auth/auth';
 import { LayoutLoginComponent } from './layouts/login/login.component';
 import { LayoutRegisterComponent } from './layouts/register/register.component';
 
-
-
 @NgModule({
   declarations: [
     // PIPES
@@ -69,21 +66,20 @@ import { LayoutRegisterComponent } from './layouts/register/register.component';
     // LAYOUTS
     LayoutAuthComponent,
     LayoutLoginComponent,
-    LayoutRegisterComponent
+    LayoutRegisterComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
     RouterModule,
     ToasterModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (HttpLoaderFactory),
-        deps: [HttpClient]
-      }
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
     }),
   ],
   providers: [
@@ -97,7 +93,7 @@ import { LayoutRegisterComponent } from './layouts/register/register.component';
     CanActivateGuard,
     NotificationsService,
     TranslateService,
-    LoggerService
-  ]
+    LoggerService,
+  ],
 })
-export class NgxAdminLteModule { }
+export class NgxAdminLteModule {}

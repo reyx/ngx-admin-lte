@@ -1,7 +1,8 @@
 import { User } from '../models/user';
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 @Injectable()
 export class UserService {

@@ -1,0 +1,22 @@
+{
+  "COMPONENT": {
+    "LOADING": "Aguarde {{0}}..."
+  },
+  "RECIEVED": {
+    "MESSAGE": "Mensagem recebida",
+    "NOTIFICATION": "Notificações recebida",
+    "TASK": "Tarefa recebida"
+  },
+  "MSGBOX": {
+    "COUNT": "Você possui {{0}} novas mensagens",
+    "FOOTER": "Caixa de mensagens"
+  },
+  "NOTIFBOX": {
+    "COUNT": "Você possui {{0}} novas notificações",
+    "FOOTER": "Exibir todas as notificações"
+  },
+  "TASKBOX": {
+    "COUNT": "Você possui {{0}} novas tarefas",
+    "FOOTER": "Exibir todas as tarefas"
+  }
+}

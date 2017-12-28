@@ -5,48 +5,50 @@ import { User } from '../models/user';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 
-const langs = ['en', 'fr', 'ru', 'he', 'zh'];
-const langmatch = /en|fr|ru|he|zh/;
+const langs = ['en', 'fr', 'pt-BR', 'ru', 'he', 'zh'];
+const langmatch = /en|fr|pt-BR|ru|he|zh/;
 
 @Injectable()
 export class TranslateService implements OnInit {
-    private lang = 'us';
-    private currentUser: User;
+  private lang = 'us';
+  private currentUser: User;
 
-    constructor( private userServ: UserService, private translate: NGXTranslateService ) {
-        translate.addLangs( langs );
-        // this language will be used as a fallback when a translation isn't found in the current language
-        translate.setDefaultLang( 'en' );
+  constructor(
+    private userServ: UserService,
+    private translate: NGXTranslateService
+  ) {
+    translate.addLangs(langs);
+    // this language will be used as a fallback when a translation isn't found in the current language
+    translate.setDefaultLang('en');
 
-        this.userServ.getCurrent().subscribe(( user: User ) => {
-            this.currentUser = user;
+    this.userServ.getCurrent().subscribe((user: User) => {
+      this.currentUser = user;
 
-            // the lang to use, if the lang isn't available, it will use the current loader to get them
-            const browserLang = this.translate.getBrowserLang();
-            const browserCultureLang = this.translate.getBrowserCultureLang();
-            console.log( 'Detected browser language: "' + browserCultureLang + '"' );
+      // the lang to use, if the lang isn't available, it will use the current loader to get them
+      const browserLang = this.translate.getBrowserLang();
+      const browserCultureLang = this.translate.getBrowserCultureLang();
+      console.log('Detected browser language: "' + browserCultureLang + '"');
 
-            // check if current User has a Preferred Language set, and it differs from his browser lang
-            let useLang = 'en';
-            const prefLang = ( this.currentUser ) ? this.currentUser.preferredLang : null;
-            if ( !prefLang ) {
-                useLang = browserLang.match( langmatch ) ? browserLang : 'en';
-            } else {
-                console.log( 'Detected User preferred language: "' + prefLang + '"' );
-                useLang = prefLang.match( langmatch ) ? prefLang : 'en';
-            }
-            this.translate.use( useLang );
-            console.log( 'Translation language has been set to: "' + useLang + '"' );
-            // translate.use( 'ru' );
-        });
-    }
+      // check if current User has a Preferred Language set, and it differs from his browser lang
+      let useLang = 'en';
+      const prefLang = this.currentUser ? this.currentUser.preferredLang : null;
+      if (!prefLang) {
+        useLang = browserLang.match(langmatch) ? browserLang : 'en';
+      } else {
+        console.log('Detected User preferred language: "' + prefLang + '"');
+        useLang = prefLang.match(langmatch) ? prefLang : 'en';
+      }
+      this.translate.use(useLang);
+      console.log('Translation language has been set to: "' + useLang + '"');
+      // translate.use( 'ru' );
+    });
+  }
 
-    public ngOnInit() {
-        // TODO
-    }
+  public ngOnInit() {
+    // TODO
+  }
 
-    public getTranslate(): NGXTranslateService {
-        return this.translate;
-    }
-
+  public getTranslate(): NGXTranslateService {
+    return this.translate;
+  }
 }

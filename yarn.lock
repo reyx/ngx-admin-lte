@@ -3383,7 +3383,13 @@ jasminewd2@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/jasminewd2/-/jasminewd2-2.2.0.tgz#e37cf0b17f199cce23bea71b2039395246b4ec4e"
 
-jquery@^3.2.1:
+jquery-confirm@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/jquery-confirm/-/jquery-confirm-3.3.2.tgz#c80a7a1517c738f5e5735993bb168e938d08f582"
+  dependencies:
+    jquery ">=1.6"
+
+jquery@>=1.6, jquery@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
 

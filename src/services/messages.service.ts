@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
+declare var $: any;
+
 const initialMessages: Message[] = [];
 
 type IMessagesOperation = (messages: Message[]) => Message[];
@@ -48,5 +50,106 @@ export class MessagesService {
   // an imperative function call to this action stream
   public addMessage(message: Message): void {
     this.newMessages.next(message);
+  }
+
+  public confirm(title: string, content: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      $.confirm({
+        title,
+        content,
+        buttons: {
+          yes: {
+            text: 'Sim',
+            btnClass: 'btn-blue',
+            keys: ['enter', 'shift'],
+            action: () => resolve(true),
+          },
+          no: {
+            text: 'Não',
+            action: () => reject(),
+          },
+        },
+      });
+    });
+  }
+
+  public select(
+    title: string,
+    content: string,
+    values: [{ value: string; text: string }]
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const options = values.map(item => {
+        return `
+        <option value="${item.value}" class="name form-control" required>
+          ${item.text}
+        </option>`;
+      });
+
+      $.confirm({
+        title,
+        content: `
+        <p>${content}</p>
+        <form action="" id="confirm-dialog">
+          <div class="form-group">
+            <select autofocus id="prompt-value" class="form-control" required>
+              ${options}
+            </select>
+          </div>
+        </form>`,
+        buttons: {
+          submit: {
+            text: 'Confirmar',
+            btnClass: 'btn-blue',
+            action: () => resolve($('#prompt-value').val()),
+          },
+          cancel: {
+            text: 'Cancelar',
+            action: () => reject(),
+          },
+        },
+        onContentReady: function() {
+          const jc = this;
+          this.$content.find('form').on('submit', e => {
+            e.preventDefault();
+            jc.$$submit.trigger('click');
+          });
+        },
+      });
+    });
+  }
+
+  public prompt(title: string, content: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      $.confirm({
+        title,
+        content: `
+        <p>${content}</p>
+        <form action="" id="prompt-dialog">
+          <div class="form-group">
+            <input autofocus id="prompt-value" class="form-control" name="value" required />
+          </div>
+        </form>`,
+        buttons: {
+          submit: {
+            text: 'Confirmar',
+            btnClass: 'btn-blue',
+            action: () => {
+              resolve($('#prompt-value').val());
+            },
+          },
+          cancel: {
+            text: 'Cancelar',
+          },
+        },
+        onContentReady: function() {
+          const jc = this;
+          this.$content.find('form').on('submit', e => {
+            e.preventDefault();
+            jc.$$submit.trigger('click');
+          });
+        },
+      });
+    });
   }
 }

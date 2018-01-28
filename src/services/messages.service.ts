@@ -34,7 +34,6 @@ export class MessagesService {
     // recois des operation, et les fais sur la liste interne, puis diffuse le resultat sur messages
     this.updates.subscribe(ope => {
       this.messagesList = ope(this.messagesList);
-      console.log(this.messagesList);
       this.messages.next(this.messagesList);
     });
 
@@ -50,6 +49,24 @@ export class MessagesService {
   // an imperative function call to this action stream
   public addMessage(message: Message): void {
     this.newMessages.next(message);
+  }
+
+  public alert(
+    content: string,
+    title: string = 'Atenção',
+    type: string = 'red'
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      $.confirm({
+        title,
+        content,
+        type,
+        icon: 'fa fa-warning',
+        buttons: {
+          ok: { text: 'Ok', btnClass: `btn-${type}` },
+        },
+      });
+    });
   }
 
   public confirm(title: string, content: string): Promise<any> {
